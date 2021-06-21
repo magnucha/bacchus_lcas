@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+
+  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/gnss_antenna_generic/gnss_antenna.gazebo.xacro"/>
+
+
+  <xacro:macro name="gnss_antenna_sensor" params="tf_prefix parent_link output_sim suffix datum_file *joint_pose">
+
+    <link name="${tf_prefix}gps_${suffix}" >
+      <visual>
+        <material name="sept_color">
+          <color rgba="1 1 1 1" />
+        </material>
+        <geometry>
+          <cylinder length="0.05" radius="0.05" />
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="gps_${suffix}" type="fixed">
+      <parent link="${tf_prefix}${parent_link}"/>
+      <child link="${tf_prefix}gps_${suffix}"/>
+      <xacro:insert_block name="joint_pose"/>
+    </joint>
+
+    <xacro:gnss_antenna_gazebo
+      tf_prefix="${tf_prefix}"
+      output_sim="${output_sim}"
+      datum_file="${datum_file}">
+    </xacro:gnss_antenna_gazebo>
+
+  </xacro:macro>
+
+
+
+  <xacro:macro name="default_gnss_antenna_frame_su_front">
+    <xacro:gnss_antenna_sensor
+      tf_prefix="$(arg tf_prefix)" 
+      parent_link="base_link" 
+      output_sim="false" 
+      suffix="front" 
+      datum_file="$(arg datum_file)">
+      <origin xyz="0.495 0 2.0" rpy="0 0 0"/>
+    </xacro:gnss_antenna_sensor>
+  </xacro:macro>
+  
+  <xacro:macro name="default_gnss_antenna_frame_su_back">
+    <xacro:gnss_antenna_sensor 
+      tf_prefix="$(arg tf_prefix)"
+      parent_link="base_link"
+      output_sim="true"
+      suffix="back"
+      datum_file="$(arg datum_file)">
+      <origin xyz="-0.495 0 2.0" rpy="0 0 0"/>
+    </xacro:gnss_antenna_sensor>
+  </xacro:macro>
+
+
+</robot>

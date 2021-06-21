@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/laserscanner_3d_sick_mrs1000/laserscanner_3d_sick_mrs1000.gazebo.xacro"/>
+
+  <xacro:macro name="laserscanner_3d_sick_mrs1000_sensor" params="robot_name tf_prefix parent_link output_sim topic_prefix suffix *joint_pose">
+
+    <link name="${tf_prefix}mrs1000_${suffix}_POS_000_DIST1">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://rasberry_bringup/urdf/components/sensors/laserscanner_3d_sick_mrs1000/meshes/mrs1000.stl"/>
+        </geometry>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+
+    <link name="${tf_prefix}mrs1000_${suffix}">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://rasberry_bringup/urdf/components/sensors/laserscanner_3d_sick_mrs1000/meshes/mrs1000.stl"/>
+        </geometry>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+
+    <joint name="base_sens_mrs1000_${suffix}" type="fixed">
+      <parent link="${tf_prefix}${parent_link}"/>
+      <child link="${tf_prefix}mrs1000_${suffix}_POS_000_DIST1"/>
+      <axis xyz="0 1 0" />
+      <xacro:insert_block name="joint_pose"/>
+    </joint>
+
+    <joint name="base_sens_mrs1000_${suffix}_cloud" type="fixed">
+      <parent link="${tf_prefix}${parent_link}"/>
+      <child link="${tf_prefix}mrs1000_${suffix}"/>
+      <axis xyz="0 1 0" />
+      <xacro:insert_block name="joint_pose"/>
+    </joint>
+
+    <xacro:if value="${output_sim}">
+      <xacro:laserscanner_3d_sick_mrs1000_gazebo
+        robot_name="${robot_name}"
+        tf_prefix="${tf_prefix}"
+        topic_prefix="${topic_prefix}"
+        suffix="${suffix}">
+      </xacro:laserscanner_3d_sick_mrs1000_gazebo>
+    </xacro:if>
+
+  </xacro:macro>
+
+</robot>

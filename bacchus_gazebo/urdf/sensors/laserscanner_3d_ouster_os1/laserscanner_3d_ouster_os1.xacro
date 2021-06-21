@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/laserscanner_3d_ouster_os1/laserscanner_3d_ouster_os1.gazebo.xacro"/>
+
+
+
+    <link name="${tf_prefix}os1_${params['suffix']}">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <!-- Use sick stl for now, only affects visualisation -->
+          <mesh filename="package://rasberry_bringup/urdf/components/sensors/laserscanner_3d_sick_mrs1000/meshes/mrs1000.stl"/>
+        </geometry>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+
+
+    <joint name="base_sens_os1_${params['suffix']}_joint" type="fixed">
+      <parent link="${tf_prefix}${params['parent_link']}"/>
+      <child link="${tf_prefix}os1_${params['suffix']}"/>
+      <axis xyz="0 1 0" />
+      <origin xyz="${params['x']} ${params['y']} ${params['z']}" rpy="${params['roll']} ${params['pitch']} ${params['yaw']}"/>
+    </joint>
+
+    <xacro:if value="${params['output_sim']}">
+      <xacro:laserscanner_3d_ouster_os1_gazebo
+        robot_name="${robot_name}"
+        tf_prefix="${tf_prefix}"
+        topic_prefix="${params['topic_prefix']}"
+        suffix="${params['suffix']}">
+      </xacro:laserscanner_3d_ouster_os1_gazebo>
+    </xacro:if>
+
+</robot>

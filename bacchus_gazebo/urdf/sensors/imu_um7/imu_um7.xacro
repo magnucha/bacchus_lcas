@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/imu_um7/imu_um7.gazebo.xacro"/>
+
+    <link name="${tf_prefix}imu_link"/>
+
+    <joint name="base_sens_imu" type="fixed">
+      <parent link="${tf_prefix}${params['parent_link']}"/>
+      <child link="${tf_prefix}imu_link"/>
+      <origin xyz="${params['x']} ${params['y']} ${params['z']}" rpy="${params['roll']} ${params['pitch']} ${params['yaw']}"/>
+    </joint>
+
+    <xacro:imu_um7_gazebo
+      tf_prefix="${tf_prefix}">
+    </xacro:imu_um7_gazebo>
+
+
+</robot>

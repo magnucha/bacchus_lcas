@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="sensor_frames">
+
+    <xacro:arg name="tf_prefix" default=""/>
+    <xacro:arg name="robot_name" default=""/>
+    <xacro:arg name="datum_file" default=""/>
+
+    <xacro:property name="tf_prefix" value="$(arg tf_prefix)" />
+    <xacro:property name="robot_name" value="$(arg robot_name)" />
+    <xacro:property name="datum_file" value="$(arg datum_file)" />
+
+  <!-- Import all sensors from sensors sub-folder -->
+  <!-- <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/sensor_velodyne_vlp16.xacro" /> -->
+  <!-- <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/sensor_imu.xacro" />   -->
+  <!-- <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/sensor_hokuyo_laser.xacro"/> -->
+  <!-- <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/sensor_kinect_v2.xacro"/>  -->
+
+    <!-- Import Rviz Colors -->
+    <xacro:include filename="$(find bacchus_gazebo)/urdf/materials/materials.xacro" />
+
+    <!-- GNSS Sensors-->
+    <xacro:if value="${'gnss_antenna_main' in base_params}" >
+        <xacro:property name="params" value="${base_params['gnss_antenna_main']}" />
+
+        <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/gnss_antenna_generic/gnss_antenna.xacro"/>
+    </xacro:if>
+
+    <xacro:if value="${'gnss_antenna_aux' in base_params}" >
+        <xacro:property name="params" value="${base_params['gnss_antenna_aux']}" />
+
+        <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/gnss_antenna_generic/gnss_antenna.xacro"/>
+    </xacro:if>
+
+
+    <!-- IMU -->
+    <xacro:if value="${'imu' in base_params}" >
+        <xacro:property name="params" value="${base_params['imu']}" />
+
+        <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/imu_${params['model']}/imu_${params['model']}.xacro"/>
+    </xacro:if>
+
+
+    <!-- Laser Sensors-->
+    <xacro:if value="${'lidar_back' in base_params}" >
+        <xacro:property name="params" value="${base_params['lidar_back']}" />
+
+        <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/laserscanner_${params['type']}_${params['make']}_${params['model']}/laserscanner_${params['type']}_${params['make']}_${params['model']}.xacro"/>
+    </xacro:if>
+
+    <xacro:if value="${'lidar_front' in base_params}" >
+        <xacro:property name="params" value="${base_params['lidar_front']}" />
+
+        <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/laserscanner_${params['type']}_${params['make']}_${params['model']}/laserscanner_${params['type']}_${params['make']}_${params['model']}.xacro"/>
+    </xacro:if>
+
+    <xacro:if value="${'lidar' in base_params}" >
+        <xacro:property name="params" value="${base_params['lidar']}" />
+
+        <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/laserscanner_${params['type']}_${params['make']}_${params['model']}/laserscanner_${params['type']}_${params['make']}_${params['model']}.xacro"/>
+    </xacro:if>
+
+    <!-- Other lidars -->
+    <xacro:macro name="make_lidars" params="current_index:=1" >
+        <xacro:property name="current_lidar" value="lidar${current_index}" />
+        <xacro:if value="${current_lidar in base_params['lidars']}" >
+            <xacro:property name="params" value="${base_params['lidars'][current_lidar]}" />
+
+            <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/laserscanner_${params['type']}_${params['make']}_${params['model']}/laserscanner_${params['type']}_${params['make']}_${params['model']}.xacro"/>
+
+            <xacro:property name="next_lidar" value="lidar${current_index + 1}" />
+            <xacro:if value="${next_lidar in base_params['lidars']}" >
+                <xacro:make_lidars current_index="${current_index + 1}" />
+            </xacro:if>
+        </xacro:if>
+    </xacro:macro>
+    <xacro:if value="${'lidars' in base_params}">
+        <xacro:make_lidars />
+    </xacro:if>
+
+    <!-- Cameras -->
+    <xacro:macro name="make_cameras" params="current_index:=1" >
+        <xacro:property name="current_camera" value="camera${current_index}" />
+        <xacro:if value="${current_camera in base_params['cameras']}" >
+            <xacro:property name="params" value="${base_params['cameras'][current_camera]}" />
+
+            <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/camera_${params['type']}_${params['make']}_${params['model']}/camera_${params['type']}_${params['make']}_${params['model']}.xacro" />
+
+            <xacro:property name="next_camera" value="camera${current_index + 1}" />
+            <xacro:if value="${next_camera in base_params['cameras']}" >
+                <xacro:make_cameras current_index="${current_index + 1}" />
+            </xacro:if>
+        </xacro:if>
+    </xacro:macro>
+    <xacro:if value="${'cameras' in base_params}">
+        <xacro:make_cameras />
+    </xacro:if>
+
+</robot>
+

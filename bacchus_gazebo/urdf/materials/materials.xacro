@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot>
+
+  <material name="rasberry/black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="rasberry/blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+
+  <material name="rasberry/green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+
+  <material name="rasberry/grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+
+  <material name="rasberry/orange">
+    <color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+  </material>
+
+  <material name="rasberry/brown">
+    <color rgba="${222/255} ${207/255} ${195/255} 1.0"/>
+  </material>
+
+  <material name="rasberry/red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="rasberry/white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <material name="rasberry/alu">
+    <color rgba="0.75 0.75 0.75 1.0"/>
+  </material>
+
+</robot>

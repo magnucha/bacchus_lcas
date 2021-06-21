@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="gnss_antenna_gazebo" params="tf_prefix output_sim datum_file">
+
+      <xacro:if value="${datum_file != '' and output_sim}">
+      
+      <xacro:property name="sim_reference_heading" value="90"/>
+      <xacro:property name="datum" value="${load_yaml(datum_file)}"/>
+
+      <gazebo>
+        <plugin name="gazebo_ros_gps" filename="libhector_gazebo_ros_gps.so">
+          <alwaysOn>1</alwaysOn>
+          <updateRate>4.0</updateRate>
+          <bodyName>${tf_prefix}base_link</bodyName>
+          <frameId>${tf_prefix}base_link</frameId>
+          <topicName>gps/fix</topicName>
+          <velocityTopicName>vel</velocityTopicName>
+          <referenceLatitude>${datum['datum_latitude']}</referenceLatitude>
+          <referenceLongitude>${datum['datum_longitude']}</referenceLongitude>
+          <referenceHeading>${sim_reference_heading}</referenceHeading>
+          <status>2</status>
+          <drift>0.025 0.025 0.025</drift>
+          <driftFrequency>0.05 0.05 0.05</driftFrequency>
+          <gaussianNoise>0.025 0.025 0.025</gaussianNoise>
+          <velocitydrift>0.1 0.1 0.1</velocitydrift>
+          <velocitygaussiannoise>0.1 0.1 0.1</velocitygaussiannoise>
+        </plugin>
+      </gazebo>
+    
+    </xacro:if>
+
+  </xacro:macro>
+
+
+</robot>

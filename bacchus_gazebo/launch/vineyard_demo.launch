@@ -13,7 +13,7 @@
     -->
   <!-- <arg name="robot_no" default="001"/> -->  <!-- unused-->
   <arg name="robot_model" default="$(find bacchus_gazebo)/config/robot.yaml"/>
-  <arg name="model_extras" default="$(find bacchus_gazebo)/urdf/simple_sensors.xacro"/> 
+  <arg name="model_extras" default="$(find bacchus_gazebo)/urdf/saga_sensors.xacro"/>
   <!-- sensor suites:
     - simple_sensors
     - bacchus_sensors (2 hokuyo, 3 kinect v2, 1 velodyne)
@@ -64,31 +64,31 @@
     </include>
 
     <group if="$(arg fake_localisation)">
-      <node 
+      <node
         name="map_server"
         pkg="map_server"
         type= "map_server"
         args="$(find bacchus_gazebo)/maps/cropped.yaml" />
 
-      <node 
+      <node
         name="world_tf_map"
         pkg="tf"
         type= "static_transform_publisher"
         args="0 0 0 0 0 0 /world /map 100" />
 
-      <node 
+      <node
         name="world_tf_thorvald"
         pkg="tf"
         type= "static_transform_publisher"
         args="0 0 0 0 0 0 /map /thorvald_001/odom 100" />
-    </group> 
+    </group>
 
     <group if="$(arg launch_move_base)">
       <include file="$(find bacchus_move_base)/launch/move_base_dwa_multisim.launch" />
     </group>
 
     <group if="$(arg launch_rviz)">
-      <node 
+      <node
         name="rviz"
         pkg="rviz"
         type= "rviz"
@@ -96,7 +96,7 @@
     </group>
   </group>
 
-    
+
   <group if="$(eval robot_name == 'rb_sherpa')">
     <include file="$(find rbsherpa_sim_bringup)/launch/rbsherpa_complete.launch">
       <arg name="kinematics" value="omni" />
@@ -112,7 +112,7 @@
       <arg name="arm_controllers" value="arm_controller"/>
       <arg name="world_file" value="$(arg world)"/>
     </include>
-    
+
     <!-- TODO: it doesn't work if left here in this launch file -->
     <!-- $ ROS_NAMESPACE=robot roslaunch rbsherpa_moveit_ur10 demo.launch -->
     <!-- $ ROS_NAMESPACE=robot rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller -->

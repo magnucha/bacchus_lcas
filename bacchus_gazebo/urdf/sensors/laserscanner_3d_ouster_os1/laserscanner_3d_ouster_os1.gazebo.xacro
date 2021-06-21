@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="laserscanner_3d_ouster_os1_gazebo" params="robot_name tf_prefix topic_prefix suffix">
+
+      <gazebo reference="${tf_prefix}os1_${suffix}">
+        <sensor name="${robot_name}_ousteros1_${suffix}_sensor" type="ray">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>false</visualize>
+          <update_rate>12.5</update_rate>
+          <always_on>1</always_on>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>1100</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.14159</min_angle>
+                <max_angle>3.14159</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>16</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.3926991</min_angle>
+                <max_angle>0.3926991</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.20</min>
+              <max>64.0</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <!-- Noise parameters based on published spec for sick laser
+                  achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                  stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                  reading. -->
+              <mean>0.0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+          </ray>
+          <plugin name="${robot_name}_ousteros1_${suffix}_node" filename="libgazebo_ros_block_laser.so">
+            <topicName>${topic_prefix}/points</topicName>
+            <frameName>os_${suffix}</frameName>
+          </plugin>
+        </sensor>
+      </gazebo>
+
+  </xacro:macro>
+
+</robot>

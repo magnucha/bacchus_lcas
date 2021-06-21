@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/gnss_antenna_generic/gnss_antenna.gazebo.xacro"/>
+
+    <link name="${tf_prefix}gps_${params['suffix']}" >
+      <visual>
+        <material name="sept_color">
+          <color rgba="1 1 1 1" />
+        </material>
+        <geometry>
+          <cylinder length="0.05" radius="0.05" />
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="gps_${params['suffix']}" type="fixed">
+      <parent link="${tf_prefix}${params['parent_link']}"/>
+      <child link="${tf_prefix}gps_${params['suffix']}"/>
+      <origin xyz="${params['x']} ${params['y']} ${params['z']}" rpy="0 0 0"/>
+    </joint>
+
+    <xacro:gnss_antenna_gazebo
+      tf_prefix="${tf_prefix}"
+      output_sim="${params['output_sim']}"
+      datum_file="${datum_file}">
+    </xacro:gnss_antenna_gazebo>
+
+</robot>
