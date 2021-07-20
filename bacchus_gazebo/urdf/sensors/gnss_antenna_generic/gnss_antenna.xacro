@@ -2,7 +2,7 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/gnss_antenna_generic/gnss_antenna.gazebo.xacro"/>
+  <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/gnss_antenna_generic/gnss_antenna.gazebo.xacro"/>
 
     <link name="${tf_prefix}gps_${params['suffix']}" >
       <visual>

@@ -2,7 +2,7 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/imu_um7/imu_um7.gazebo.xacro"/>
+    <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/imu_um7/imu_um7.gazebo.xacro"/>
 
     <link name="${tf_prefix}imu_link"/>
 

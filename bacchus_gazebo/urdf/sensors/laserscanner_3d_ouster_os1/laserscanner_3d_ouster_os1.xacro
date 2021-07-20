@@ -2,7 +2,7 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/laserscanner_3d_ouster_os1/laserscanner_3d_ouster_os1.gazebo.xacro"/>
+  <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/laserscanner_3d_ouster_os1/laserscanner_3d_ouster_os1.gazebo.xacro"/>
 
 
 

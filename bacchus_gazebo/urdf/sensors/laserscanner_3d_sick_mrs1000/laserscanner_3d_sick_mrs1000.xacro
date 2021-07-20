@@ -2,7 +2,7 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/laserscanner_3d_sick_mrs1000/laserscanner_3d_sick_mrs1000.gazebo.xacro"/>
+  <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/laserscanner_3d_sick_mrs1000/laserscanner_3d_sick_mrs1000.gazebo.xacro"/>
 
     <link name="${tf_prefix}mrs1000_${params['suffix']}_POS_000_DIST1">
       <collision>

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    
 
-  <xacro:include filename="$(find rasberry_bringup)/urdf/components/sensors/gnss_antenna_generic/gnss_antenna.gazebo.xacro"/>
+
+  <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/gnss_antenna_generic/gnss_antenna.gazebo.xacro"/>
 
 
   <xacro:macro name="gnss_antenna_sensor" params="tf_prefix parent_link output_sim suffix datum_file *joint_pose">
@@ -37,17 +37,17 @@
 
   <xacro:macro name="default_gnss_antenna_frame_su_front">
     <xacro:gnss_antenna_sensor
-      tf_prefix="$(arg tf_prefix)" 
-      parent_link="base_link" 
-      output_sim="false" 
-      suffix="front" 
+      tf_prefix="$(arg tf_prefix)"
+      parent_link="base_link"
+      output_sim="false"
+      suffix="front"
       datum_file="$(arg datum_file)">
       <origin xyz="0.495 0 2.0" rpy="0 0 0"/>
     </xacro:gnss_antenna_sensor>
   </xacro:macro>
-  
+
   <xacro:macro name="default_gnss_antenna_frame_su_back">
-    <xacro:gnss_antenna_sensor 
+    <xacro:gnss_antenna_sensor
       tf_prefix="$(arg tf_prefix)"
       parent_link="base_link"
       output_sim="true"
