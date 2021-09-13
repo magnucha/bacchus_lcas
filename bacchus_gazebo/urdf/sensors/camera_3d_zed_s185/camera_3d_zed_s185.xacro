@@ -18,10 +18,10 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<robot name="camera_3d_zed_zed2_sensor" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="camera_3d_zed_s185_sensor" xmlns:xacro="http://ros.org/wiki/xacro">
 
     <!--File includes-->
-    <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/camera_3d_zed_zed2/zed_zed2.gazebo.xacro"/>
+    <xacro:include filename="$(find bacchus_gazebo)/urdf/sensors/camera_3d_zed_s185/zed_s185.gazebo.xacro"/>
 
     <!-- Properties -->
     <xacro:property name="M_PI"     value="3.1415926535897931" />
@@ -38,7 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://bacchus_gazebo/urdf/sensors/camera_3d_zed_zed2/meshes/zed2.stl" />
+                <mesh filename="package://bacchus_gazebo/urdf/sensors/camera_3d_zed_s185/meshes/zed2.stl" />
             </geometry>
         </visual>
     </link>
@@ -111,12 +111,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <link name="${tf_prefix}${params['suffix']}_zed2_temp_right_link" />
 
     <!-- Camera Gazebo Plugin -->
-    <xacro:camera_3d_zed_zed2_gazebo
+    <xacro:camera_3d_zed_s185_gazebo
         robot_name="${robot_name}"
         tf_prefix="${tf_prefix}"
         output_sim="${params['output_sim']}"
         topic_prefix="${params['topic_prefix']}"
         suffix="${params['suffix']}">
-    </xacro:camera_3d_zed_zed2_gazebo>
+    </xacro:camera_3d_zed_s185_gazebo>
 
 </robot>

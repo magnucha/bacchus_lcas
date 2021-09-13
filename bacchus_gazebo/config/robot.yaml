@@ -106,12 +106,12 @@ lidars: {lidar1: {make: "ouster",
 
 
 # GNSS antennas - main antenna should be at the back
-gnss_antenna_main: {x: -0.40, y: -0.45, z: 1.2,
+gnss_antenna_main: {x: -0.40, y: 0.45, z: 1.1,
                     parent_link: "base_link",
                     suffix: "back",
                     output_sim: "true"}
 
-gnss_antenna_aux: {x: 0.40, y: -0.45, z: 1.2,
+gnss_antenna_aux: {x: 0.40, y: 0.45, z: 1.1,
                    parent_link: "base_link",
                    suffix: "front",
                    output_sim: "false"} # Always false for aux antenna
@@ -126,6 +126,7 @@ imu: {model: "um7",
 
 
 cameras: {
+  # Front-facing
   camera1: {
     make: "zed",
     model: "zed2",
@@ -134,9 +135,11 @@ cameras: {
     topic_prefix: "zed2_camera1",
     suffix: "1",
     output_sim: "true",
-    x: 0.50, y: 0, z: 1.00,
+    #x: 0.50, y: 0, z: 1.00,
+    x: 0.55, y: 0, z: 0.70,
     roll: 0.0, pitch: 0.0, yaw: 0.0
   },
+  # Right-facing
   camera2: {
     make: "zed",
     model: "zed2",
@@ -145,7 +148,21 @@ cameras: {
     topic_prefix: "zed2_camera2",
     suffix: "2",
     output_sim: "true",
-    x: 0.35, y: 0.46, z: 1.00,
-    roll: 0.0, pitch: 0.0, yaw: 1.5708
+    #x: 0.35, y: 0.46, z: 1.00,
+    x: -0.35, y: -0.55, z: 0.70,
+    roll: 0.0, pitch: 0.0, yaw: -1.5708
+  },
+  #Hyperspectral
+  camera3: {
+    make: "zed",
+    model: "s185",
+    type: "3d",
+    parent_link: "base_link",
+    topic_prefix: "s185_camera1",
+    suffix: "3",
+    output_sim: "true",
+    #x: 0.35, y: 0.46, z: 1.00,
+    x: -0.35, y: 0.55, z: 1.26,
+    roll: 0.0, pitch: 0.1222, yaw: -1.5708
   }
 }

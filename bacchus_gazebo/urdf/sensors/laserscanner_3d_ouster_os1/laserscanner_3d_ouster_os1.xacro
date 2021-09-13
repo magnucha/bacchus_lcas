@@ -18,7 +18,7 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <!-- Use sick stl for now, only affects visualisation -->
-          <mesh filename="package://rasberry_bringup/urdf/components/sensors/laserscanner_3d_sick_mrs1000/meshes/mrs1000.stl"/>
+          <mesh filename="package://bacchus_gazebo/urdf/sensors/laserscanner_3d_sick_mrs1000/meshes/mrs1000.stl"/>
         </geometry>
       </visual>
 
